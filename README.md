@@ -9,7 +9,7 @@ IBL ibl = new IBL.Builder("BOT_ID","IBL_TOKEN");
 ibl.postStats(100);
 
 // Post server count and shard count
-ibl.postStats(100,5);
+ibl.postStats(100, 5);
 ```
 
 ### Auto Posting
