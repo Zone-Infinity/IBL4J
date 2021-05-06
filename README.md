@@ -3,7 +3,7 @@
 ### Posting
 
 ```java
-IBL ibl = new IBL.Builder("BOT_ID","IBL_TOKEN");
+IBL ibl = new IBL.Builder("BOT_ID", "IBL_TOKEN");
 
 // Post only server count
 ibl.postStats(100);
