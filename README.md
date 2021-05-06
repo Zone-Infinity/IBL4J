@@ -38,7 +38,7 @@ ibl.autoPostStats(1, TimeUnit.HOURS);
 ```
 ```xml
 <dependency>
-    <groupId>com.github.Zone-Infinity1</groupId>
+    <groupId>com.github.Zone-Infinity</groupId>
     <artifactId>IBL4J</artifactId>
     <version>0.1</version>
 </dependency>
