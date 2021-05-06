@@ -40,7 +40,7 @@ ibl.autoPostStats(1, TimeUnit.HOURS);
 <dependency>
     <groupId>com.github.Zone-Infinity1</groupId>
     <artifactId>IBL4J</artifactId>
-    <version>1.0</version>
+    <version>0.1</version>
 </dependency>
 ```
 ### Gradle
@@ -48,6 +48,6 @@ ibl.autoPostStats(1, TimeUnit.HOURS);
 maven { url 'https://jitpack.io' }
 ```
 ```gradle
-implementation 'com.github.Zone-Infinity:IBL4J:1.0'
+implementation 'com.github.Zone-Infinity:IBL4J:0.1'
 ```
 
