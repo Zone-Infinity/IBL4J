@@ -39,6 +39,11 @@ ibl.autoPostStats(1000 * 60 * 60);
 // Post stats every 1 TimeUnit#HOURS
 ibl.autoPostStats(1, TimeUnit.HOURS);
 ```
+###### Custom ScheduledExecutorService for AutoPosting
+```java
+// executor -> Your instance of ScheduledExecutorService
+IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN", executor);
+```
 
 ## Installation
 ### Maven
