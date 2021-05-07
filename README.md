@@ -2,6 +2,7 @@
 
 ### Posting
 
+##### IBL with bot id 
 ```java
 IBL ibl = new IBL.Builder("BOT_ID", "IBL_TOKEN");
 
@@ -12,9 +13,20 @@ ibl.postStats(100);
 ibl.postStats(100, 5);
 ```
 
+##### IBL with jda instance
+```java
+// jda -> the JDA instance of your bot
+IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN");
+
+// Post only server count
+ibl.postStats(100);
+
+// Post server count and shard count
+ibl.postStats(100, 5);
+```
+
 ### Auto Posting
 ```java
-// IBLClient can also post normally -> IBLClient#postStats()
 // jda -> the JDA instance of your bot
 IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN");
 
