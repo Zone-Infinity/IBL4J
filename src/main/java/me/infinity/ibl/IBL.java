@@ -57,7 +57,7 @@ public interface IBL {
 
         @Override
         public void postStats(long serverCount) {
-            postStats(serverCount, 1);
+            postStats(serverCount, 0);
         }
 
         @Override
