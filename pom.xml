@@ -6,7 +6,7 @@
 
     <groupId>com.github.Zone-Infinity</groupId>
     <artifactId>IBL4J</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <packaging>jar</packaging>
 
     <properties>

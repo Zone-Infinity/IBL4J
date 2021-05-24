@@ -4,6 +4,6 @@ public class Posting {
     public static void main(String[] args) {
         IBL ibl = new IBL.Builder("BOT_ID", "IBL_TOKEN");
 
-        ibl.postStats(109);
+        ibl.postStats(100);
     }
 }
