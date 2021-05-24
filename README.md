@@ -46,6 +46,8 @@ IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN", executor);
 ```
 
 ## Installation
+- Replace `VERSION` by the latest version
+
 ### Maven
 ```xml
 <repository>
@@ -57,7 +59,7 @@ IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN", executor);
 <dependency>
     <groupId>com.github.Zone-Infinity</groupId>
     <artifactId>IBL4J</artifactId>
-    <version>0.1</version>
+    <version>VERSION</version>
 </dependency>
 ```
 ### Gradle
@@ -65,6 +67,6 @@ IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN", executor);
 maven { url 'https://jitpack.io' }
 ```
 ```gradle
-implementation 'com.github.Zone-Infinity:IBL4J:0.1'
+implementation 'com.github.Zone-Infinity:IBL4J:VERSION'
 ```
 
