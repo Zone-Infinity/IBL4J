@@ -70,7 +70,7 @@ public interface IBL {
 
                 final Request request = new Request.Builder()
                         .post(body)
-                        .addHeader("Authorization", iblToken)
+                        .addHeader("authorization", iblToken)
                         .url(baseUrl + "bot/" + botId)
                         .build();
 
