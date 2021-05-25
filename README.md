@@ -88,6 +88,6 @@ implementation 'com.github.Zone-Infinity:IBL4J:VERSION'
 
 [lastcommit]:https://img.shields.io/github/last-commit/Zone-Infinity/IBL4J?style=flat-square
 
-[workflowStatus]:https://img.shields.io/github/workflow/status/Zone-Infinity/IBL4J/Java%20CI%20with%20Maven?style=flat-squareF
+[workflowStatus]:https://img.shields.io/github/workflow/status/Zone-Infinity/IBL4J/Java%20CI%20with%20Maven?style=flat-square
 
 [jitpack]:https://img.shields.io/jitpack/v/github/Zone-Infinity/IBL4J?style=flat-square
