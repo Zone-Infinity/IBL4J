@@ -33,7 +33,7 @@ ibl.postStats(100, 5);
 
 ```java
 // jda -> the JDA instance of your bot
-IBLClient ibl=new IBLClient.Builder(jda,"IBL_TOKEN");
+IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN");
 
 // Post stats every 1 hour
 ibl.autoPostStats();
@@ -49,7 +49,7 @@ ibl.autoPostStats(1, TimeUnit.HOURS);
 
 ```java
 // executor -> Your instance of ScheduledExecutorService
-IBLClient ibl = new IBLClient.Builder(jda,"IBL_TOKEN",executor);
+IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN", executor);
 ```
 
 **Note** : If you are using `Discord4J` and `Javacord` , you cannot use `IBLClient`.<br>
