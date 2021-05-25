@@ -6,6 +6,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Client for both posting and auto posting stats (servers and shards)
+ * <p>
+ * Build IBL Instance using Builder
+ *
+ * @see Builder
+ */
 public interface IBLClient extends IBL {
     /**
      * Auto Posts Stats to IBL every 1 Hour
@@ -34,6 +41,11 @@ public interface IBLClient extends IBL {
      */
     void autoPostStats(long delay, TimeUnit timeUnit);
 
+    /**
+     * IBLClient Builder
+     *
+     * @see IBLClient
+     */
     class Builder extends IBL.Builder implements IBLClient {
         private final JDA bot;
         private final ScheduledExecutorService executor;
@@ -51,8 +63,6 @@ public interface IBLClient extends IBL {
         }
 
         /**
-         * IBL Builder
-         *
          * @param bot      JDA Instance of the bot
          * @param iblToken Infinity Bot List Token of your bot
          * @param executor ScheduledExecutorService for auto posting stats
