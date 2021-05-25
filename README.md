@@ -1,32 +1,32 @@
 # IBL4J
-
-![jitpack] ![workflowStatus] ![lastcommit]
+![jitpack] ![workflowStatus] ![lastcommit] <br>
+Java Wrapper for interacting with the Infinity Bots API
 
 ### Posting
 
 ##### IBL with bot id
 
 ```java
-IBL ibl=new IBL.Builder("BOT_ID","IBL_TOKEN");
+IBL ibl = new IBL.Builder("BOT_ID", "IBL_TOKEN");
 
 // Post only server count
-        ibl.postStats(100);
+ibl.postStats(100);
 
 // Post server count and shard count
-        ibl.postStats(100,5);
+ibl.postStats(100, 5);
 ```
 
 ##### IBL with jda instance
 
 ```java
 // jda -> the JDA instance of your bot
-IBLClient ibl=new IBLClient.Builder(jda,"IBL_TOKEN");
+IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN");
 
 // Post only server count
-        ibl.postStats(100);
+ibl.postStats(100);
 
 // Post server count and shard count
-        ibl.postStats(100,5);
+ibl.postStats(100, 5);
 ```
 
 ### Auto Posting
@@ -36,21 +36,24 @@ IBLClient ibl=new IBLClient.Builder(jda,"IBL_TOKEN");
 IBLClient ibl=new IBLClient.Builder(jda,"IBL_TOKEN");
 
 // Post stats every 1 hour
-        ibl.autoPostStats();
+ibl.autoPostStats();
 
 // Post stats every (1000 * 60 * 60) milliseconds [1 hour]
-        ibl.autoPostStats(1000*60*60);
+ibl.autoPostStats(1000*60*60);
 
 // Post stats every 1 TimeUnit#HOURS
-        ibl.autoPostStats(1,TimeUnit.HOURS);
+ibl.autoPostStats(1, TimeUnit.HOURS);
 ```
 
 ###### Custom ScheduledExecutorService for AutoPosting
 
 ```java
 // executor -> Your instance of ScheduledExecutorService
-IBLClient ibl=new IBLClient.Builder(jda,"IBL_TOKEN",executor);
+IBLClient ibl = new IBLClient.Builder(jda,"IBL_TOKEN",executor);
 ```
+
+**Note** : If you are using `Discord4J` and `Javacord` , you cannot use `IBLClient`.<br>
+The other libraries will be added soon... 
 
 ## Installation
 
@@ -59,7 +62,6 @@ IBLClient ibl=new IBLClient.Builder(jda,"IBL_TOKEN",executor);
 ### Maven
 
 ```xml
-
 <repository>
     <id>jitpack.io</id>
     <url>https://jitpack.io</url>
@@ -67,7 +69,6 @@ IBLClient ibl=new IBLClient.Builder(jda,"IBL_TOKEN",executor);
 ```
 
 ```xml
-
 <dependency>
     <groupId>com.github.Zone-Infinity</groupId>
     <artifactId>IBL4J</artifactId>
