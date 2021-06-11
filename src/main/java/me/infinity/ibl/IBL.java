@@ -1,6 +1,7 @@
 package me.infinity.ibl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.infinity.ibl.data.IBLResponse;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,7 +107,7 @@ public interface IBL {
                 }
             } catch (IOException ex) {
                 LOGGER.error("Could not post Server Stats", ex);
-                return new IBLResponse(ex.getMessage(), 500, true);
+                return new IBLResponse(ex.getMessage(), true, 500);
             }
         }
     }
