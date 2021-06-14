@@ -95,11 +95,11 @@ public interface IBL {
 
                 try (Response response = client.newCall(request).execute()) {
                     final IBLResponse res = mapper.readValue(response.body().string(), IBLResponse.class);
-                    final int code = res.getCode();
+                    final int status = res.getStatus();
 
                     if (response.isSuccessful())
                         LOGGER.info("Posted Server Count to IBL");
-                    else if (code == 401 || code == 404 || code == 429 || code == 500)
+                    else if (status == 401 || status == 404 || status == 429 || status == 500)
                         LOGGER.error(res.getMessage());
                     else
                         LOGGER.error("Something went wrong : Could not post Server Stats : {}", res.getMessage());

@@ -6,16 +6,16 @@ package me.infinity.ibl.data;
 public class IBLResponse {
     private final String message;
     private final boolean error;
-    private final int code;
+    private final int status;
 
     /**
      * @param message The message got from ibl res.json
      * @param error   true if there's a error
-     * @param code    The code got from ibl res.json
+     * @param status    The status got from ibl res.json
      */
-    public IBLResponse(String message, boolean error, int code) {
+    public IBLResponse(String message, boolean error, int status) {
         this.message = message;
-        this.code = code;
+        this.status = status;
         this.error = error;
     }
 
@@ -37,7 +37,7 @@ public class IBLResponse {
     /**
      * @return response code
      */
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 }

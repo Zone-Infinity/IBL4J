@@ -4,7 +4,7 @@ Java Wrapper for interacting with the Infinity Bots API
 
 ### Posting
 
-##### IBL with bot id
+#### IBL with bot id
 
 ```java
 IBL ibl = new IBL.Builder("BOT_ID", "IBL_TOKEN");
@@ -16,10 +16,10 @@ ibl.postStats(100);
 ibl.postStats(100, 5);
 ```
 
-##### IBL with jda instance
+#### IBL with client instance
 
 ```java
-// jda -> the JDA instance of your bot
+// jda -> the JDA (JDA), Discord4J (GatewayDiscordClient) or Javacord (DiscordApi) instance of your bot
 IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN");
 
 // Post only server count
@@ -29,7 +29,7 @@ ibl.postStats(100);
 ibl.postStats(100, 5);
 ```
 
-### Auto Posting
+###### Auto Posting
 
 ```java
 // jda -> the JDA instance of your bot
@@ -39,7 +39,7 @@ IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN");
 ibl.autoPostStats();
 
 // Post stats every (1000 * 60 * 60) milliseconds [1 hour]
-ibl.autoPostStats(1000*60*60);
+ibl.autoPostStats(1000 * 60 * 60);
 
 // Post stats every 1 TimeUnit#HOURS
 ibl.autoPostStats(1, TimeUnit.HOURS);
@@ -49,11 +49,8 @@ ibl.autoPostStats(1, TimeUnit.HOURS);
 
 ```java
 // executor -> Your instance of ScheduledExecutorService
-IBLClient ibl = new IBLClient.Builder(jda, "IBL_TOKEN", executor);
+IBLClient ibl = new IBLClient.Builder(client, "IBL_TOKEN", executor);
 ```
-
-**Note** : If you are using `Discord4J` and `Javacord` , you cannot use `IBLClient`.<br>
-The other libraries will be added soon... 
 
 ## Installation
 

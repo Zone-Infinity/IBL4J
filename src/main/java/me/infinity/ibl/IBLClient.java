@@ -1,6 +1,9 @@
 package me.infinity.ibl;
 
+import discord4j.core.GatewayDiscordClient;
+import me.infinity.ibl.data.IBLDiscordClient;
 import net.dv8tion.jda.api.JDA;
+import org.javacord.api.DiscordApi;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -47,32 +50,105 @@ public interface IBLClient extends IBL {
      * @see IBLClient
      */
     class Builder extends IBL.Builder implements IBLClient {
-        private final JDA bot;
+        private final IBLDiscordClient bot;
         private final ScheduledExecutorService executor;
 
         /**
-         * IBL Builder
+         * @param client   IBLDiscordClient Instance of the bot
+         * @param iblToken Infinity Bot List Token of your bot
+         * @see IBLDiscordClient
+         */
+        public Builder(IBLDiscordClient client, String iblToken) {
+            super(client.getId(), iblToken);
+            this.bot = client;
+            this.executor = Executors.newSingleThreadScheduledExecutor();
+        }
+
+        /**
+         * @param client   IBLDiscordClient Instance of the bot
+         * @param iblToken Infinity Bot List Token of your bot
+         * @see IBLDiscordClient
+         */
+        public Builder(IBLDiscordClient client, String iblToken, ScheduledExecutorService executor) {
+            super(client.getId(), iblToken);
+            this.bot = client;
+            this.executor = executor;
+        }
+
+        /**
+         * JDA Client Builder
          *
          * @param bot      JDA Instance of the bot
          * @param iblToken Infinity Bot List Token of your bot
          */
         public Builder(JDA bot, String iblToken) {
             super(bot.getSelfUser().getId(), iblToken);
-            this.bot = bot;
+            this.bot = new IBLDiscordClient(bot);
             this.executor = Executors.newSingleThreadScheduledExecutor();
         }
 
         /**
+         * JDA Client Builder
+         *
          * @param bot      JDA Instance of the bot
          * @param iblToken Infinity Bot List Token of your bot
          * @param executor ScheduledExecutorService for auto posting stats
          */
         public Builder(JDA bot, String iblToken, ScheduledExecutorService executor) {
             super(bot.getSelfUser().getId(), iblToken);
-            this.bot = bot;
+            this.bot = new IBLDiscordClient(bot);
             this.executor = executor;
         }
 
+        /**
+         * Discord4J Client Builder
+         *
+         * @param bot      GatewayDiscordClient Instance of the bot
+         * @param iblToken Infinity Bot List Token of your bot
+         */
+        public Builder(GatewayDiscordClient bot, String iblToken) {
+            super(bot.getSelfId().asString(), iblToken);
+            this.bot = new IBLDiscordClient(bot);
+            this.executor = Executors.newSingleThreadScheduledExecutor();
+        }
+
+        /**
+         * Discord4J Client Builder
+         *
+         * @param bot      GatewayDiscordClient Instance of the bot
+         * @param iblToken Infinity Bot List Token of your bot
+         * @param executor ScheduledExecutorService for auto posting stats
+         */
+        public Builder(GatewayDiscordClient bot, String iblToken, ScheduledExecutorService executor) {
+            super(bot.getSelfId().asString(), iblToken);
+            this.bot = new IBLDiscordClient(bot);
+            this.executor = executor;
+        }
+
+        /**
+         * Javacord Client Builder
+         *
+         * @param bot      DiscordApi Instance of the bot
+         * @param iblToken Infinity Bot List Token of your bot
+         */
+        public Builder(DiscordApi bot, String iblToken) {
+            super(bot.getClientId(), iblToken);
+            this.bot = new IBLDiscordClient(bot);
+            this.executor = Executors.newSingleThreadScheduledExecutor();
+        }
+
+        /**
+         * Javacord Client Builder
+         *
+         * @param bot      DiscordApi Instance of the bot
+         * @param iblToken Infinity Bot List Token of your bot
+         * @param executor ScheduledExecutorService for auto posting stats
+         */
+        public Builder(DiscordApi bot, String iblToken, ScheduledExecutorService executor) {
+            super(bot.getYourself().getIdAsString(), iblToken);
+            this.bot = new IBLDiscordClient(bot);
+            this.executor = executor;
+        }
 
         public void autoPostStats() {
             autoPostStats(60 * 60 * 1000);
@@ -84,10 +160,10 @@ public interface IBLClient extends IBL {
 
         public void autoPostStats(long delay, TimeUnit timeUnit) {
             executor.scheduleWithFixedDelay(() -> {
-                final long servers = bot.getGuildCache().size();
-                final int shards = bot.getShardInfo().getShardTotal();
+                final long servers = bot.getGuildCount();
+                final int shards = bot.getShardCount();
                 postStats(servers, shards);
-            }, 10000, delay, timeUnit);
+            }, 0, delay, timeUnit);
         }
     }
 }
