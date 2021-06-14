@@ -4,14 +4,17 @@ package me.infinity.ibl.data;
  * Response from IBL which contains message and response code
  */
 public class IBLResponse {
-    private final String message;
-    private final boolean error;
-    private final int status;
+    private String message;
+    private boolean error;
+    private int status;
+
+    public IBLResponse() {
+    }
 
     /**
      * @param message The message got from ibl res.json
      * @param error   true if there's a error
-     * @param status    The status got from ibl res.json
+     * @param status  The status got from ibl res.json
      */
     public IBLResponse(String message, boolean error, int status) {
         this.message = message;
