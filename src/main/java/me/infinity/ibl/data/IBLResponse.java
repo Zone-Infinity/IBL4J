@@ -1,14 +1,17 @@
 package me.infinity.ibl.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Response from IBL which contains message and response code
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class IBLResponse {
     private String message;
     private boolean error;
     private int status;
 
-    public IBLResponse() {
+    private IBLResponse() {
     }
 
     /**
@@ -28,7 +31,6 @@ public class IBLResponse {
     public String getMessage() {
         return message;
     }
-
 
     /**
      * @return true if there's a error
