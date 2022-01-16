@@ -1,23 +1,20 @@
 package me.infinity.ibl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import me.infinity.ibl.data.IBLDiscordClient;
 import me.infinity.ibl.data.IBLResponse;
-import okhttp3.*;
+import me.infinity.ibl.data.bot.IBLBot;
+import okhttp3.FormBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
-import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-@SuppressWarnings("ConstantConditions")
 public class IBLBuilder implements IBL {
-    private final String BASE_URL = "https://api.infinitybotlist.com/";
 
     private final IBLDiscordClient<?> discordClient;
     private final String iblToken;
-    private final OkHttpClient client;
-    private final ObjectMapper mapper;
 
     /**
      * @param discordClient {@link IBLDiscordClient} of your bot
@@ -26,8 +23,11 @@ public class IBLBuilder implements IBL {
     public IBLBuilder(IBLDiscordClient<?> discordClient, String iblToken) {
         this.discordClient = discordClient;
         this.iblToken = iblToken;
-        this.client = new OkHttpClient();
-        this.mapper = new ObjectMapper();
+    }
+
+    @Override
+    public IBLBot getStats() {
+        return null;
     }
 
     @Override
@@ -41,24 +41,18 @@ public class IBLBuilder implements IBL {
     }
 
     private IBLResponse postStats(boolean postShards) {
-        try {
-            RequestBody body = new FormBody.Builder()
-                    .add("servers", String.valueOf(discordClient.getGuildCount()))
-                    .add("shards", String.valueOf(postShards ? discordClient.getShardCount() : 0))
-                    .build();
+        RequestBody body = new FormBody.Builder()
+                .add("servers", String.valueOf(discordClient.getGuildCount()))
+                .add("shards", String.valueOf(postShards ? discordClient.getShardCount() : 0))
+                .build();
 
-            Request request = new Request.Builder()
-                    .post(body)
-                    .addHeader("authorization", iblToken)
-                    .url(BASE_URL + "bots/stats")
-                    .build();
+        Request request = new Request.Builder()
+                .post(body)
+                .addHeader("authorization", iblToken)
+                .url(BASE_URL + "bots/stats")
+                .build();
 
-            try (Response response = client.newCall(request).execute()) {
-                return mapper.readValue(response.body().string(), IBLResponse.class);
-            }
-        } catch (IOException ex) {
-            return new IBLResponse(ex.getMessage(), true, 500);
-        }
+        return IBLCall.fetch(request, IBLResponse.class).getResponse();
     }
 
     @Override
