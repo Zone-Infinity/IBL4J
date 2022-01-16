@@ -1,114 +1,47 @@
 package me.infinity.ibl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import me.infinity.ibl.data.IBLResponse;
-import okhttp3.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 /**
- * Client for posting stats (servers and shards) once
- * <p>
- * Build IBL Instance using Builder
- *
- * @see Builder
+ * Client for posting stats (servers and shards)
  */
 public interface IBL {
-    /**
-     * Base url of IBL api
-     */
-    String baseUrl = "https://api.infinitybotlist.com/";
 
     /**
-     * Post Stats to Infinity Bol List
+     * Only Posts Server Count to Infinity Bot List
      *
-     * @param serverCount number of servers your bot is in
      * @return Response by IBL
-     * @see IBL#postStats(long, int)
-     * @see IBLResponse
      */
-    IBLResponse postStats(long serverCount);
+    IBLResponse postServerCount();
 
     /**
-     * Post Stats to Infinity Bol List
+     * Posts Stats (Server Count and Shard Count both) to Infinity Bot List
      *
-     * @param serverCount number of servers your bot is in
-     * @param shardCount  number of shards of your bot
      * @return Response by IBL
-     * @see IBL#postStats(long)
-     * @see IBLResponse
      */
-    IBLResponse postStats(long serverCount, int shardCount);
+    IBLResponse postStats();
 
     /**
-     * IBL Builder
-     *
-     * @see IBL
+     * Auto Posts Stats to IBL every 5 minutes
      */
-    class Builder implements IBL {
-        private final String botId;
-        private final String iblToken;
-        private final OkHttpClient client;
-        private final ObjectMapper mapper;
-        private final Logger LOGGER = LoggerFactory.getLogger(IBL.class);
+    void autoPostStats(ScheduledExecutorService executor, Consumer<IBLResponse> afterResponse);
 
-        /**
-         * @param botId    Id of your Bot
-         * @param iblToken Infinity Bot List Token of your bot
-         */
-        public Builder(String botId, String iblToken) {
-            this.botId = botId;
-            this.iblToken = iblToken;
-            this.client = new OkHttpClient();
-            mapper = new ObjectMapper();
-        }
+    /**
+     * Auto Posts Stats to IBL very `delay` milliseconds
+     *
+     * @param delay delay in milliseconds
+     */
+    void autoPostStats(ScheduledExecutorService executor, long delay, Consumer<IBLResponse> afterResponse);
 
-        /**
-         * @param botId    Id of your Bot
-         * @param iblToken Infinity Bot List Token of your bot
-         */
-        public Builder(long botId, String iblToken) {
-            this(String.valueOf(botId), iblToken);
-        }
-
-        @Override
-        public IBLResponse postStats(long serverCount) {
-            return postStats(serverCount, 0);
-        }
-
-        @SuppressWarnings("ConstantConditions")
-        @Override
-        public IBLResponse postStats(long serverCount, int shardCount) {
-            try {
-                RequestBody body = new FormBody.Builder()
-                        .add("servers", String.valueOf(serverCount))
-                        .add("shards", String.valueOf(shardCount))
-                        .build();
-
-                final Request request = new Request.Builder()
-                        .post(body)
-                        .addHeader("authorization", iblToken)
-                        .url(baseUrl + "bot/" + botId)
-                        .build();
-
-                try (Response response = client.newCall(request).execute()) {
-                    final IBLResponse res = mapper.readValue(response.body().string(), IBLResponse.class);
-                    final int status = res.getStatus();
-
-                    if (response.isSuccessful())
-                        LOGGER.info("Posted Server Count to IBL");
-                    else if (status == 401 || status == 404 || status == 429 || status == 500)
-                        LOGGER.error(res.getMessage());
-                    else
-                        LOGGER.error("Something went wrong : Could not post Server Stats : {}", res.getMessage());
-                    return res;
-                }
-            } catch (IOException ex) {
-                LOGGER.error("Could not post Server Stats", ex);
-                return new IBLResponse(ex.getMessage(), true, 500);
-            }
-        }
-    }
+    /**
+     * Auto Posts Stats to IBL
+     *
+     * @param delay    delay for posting stats
+     * @param timeUnit TimeUnit for delay
+     */
+    void autoPostStats(ScheduledExecutorService executor, long delay, TimeUnit timeUnit, Consumer<IBLResponse> afterResponse);
 }
