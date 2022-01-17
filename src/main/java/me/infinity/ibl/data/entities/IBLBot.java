@@ -1,4 +1,4 @@
-package me.infinity.ibl.data.bot;
+package me.infinity.ibl.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,6 +33,9 @@ public class IBLBot {
     private Analytics analytics;
     private Links links;
 
+    private IBLBot() {
+    }
+
     @JsonIgnore
     public void doesNotExist() {
         exists = false;
@@ -59,6 +62,7 @@ public class IBLBot {
         return owner;
     }
 
+    @SuppressWarnings("unchecked")
     public void setAdditionalOwners(Object additionalOwners) {
         if (additionalOwners instanceof List)
             if (((List<?>) additionalOwners).size() == 0)

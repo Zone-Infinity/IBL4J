@@ -1,13 +1,14 @@
 package me.infinity.ibl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.function.Consumer;
 
+@SuppressWarnings("ConstantConditions")
 public class IBLCall {
 
     private static final OkHttpClient client = new OkHttpClient();
@@ -16,18 +17,32 @@ public class IBLCall {
     private IBLCall() {
     }
 
-    public static <T> ResponseT<T> fetch(Request request, Class<T> responseType) {
-        try (Response response = client.newCall(request).execute()) {
-            return new ResponseT<>(
-                    mapper.readValue(response.body().string(), responseType),
-                    response.code()
-            );
-        } catch (IOException e) {
-            // Something wrong in my codes ;-;
-            throw new UncheckedIOException("Report to Zone_Infinity#0062 on discord.", e);
-        }
+    public static <T> void fetch(Request request, Class<T> responseType, Consumer<ResponseT<T>> responseConsumer) {
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                // Something wrong in my codes ;-;
+                throw new UncheckedIOException("Report to Zone_Infinity#0062 on discord.", e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                try (ResponseBody body = response.body()) {
+                    String string = body.string();
+                    int code = response.code();
+                    ResponseT<T> responseT = new ResponseT<>(mapper.readValue(string, responseType), code);
+
+                    responseConsumer.accept(responseT);
+                }
+                response.close();
+            }
+        });
     }
 
+    public static void shutdownClient() {
+        client.connectionPool().evictAll();
+        client.dispatcher().executorService().shutdown();
+    }
 
     public static class ResponseT<T> {
         private final T response;

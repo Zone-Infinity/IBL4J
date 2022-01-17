@@ -2,7 +2,7 @@ package me.infinity.ibl;
 
 import me.infinity.ibl.data.IBLDiscordClient;
 import me.infinity.ibl.data.IBLResponse;
-import me.infinity.ibl.data.bot.IBLBot;
+import me.infinity.ibl.data.entities.IBLBot;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -31,16 +31,16 @@ public class IBLBuilder implements IBL {
     }
 
     @Override
-    public IBLResponse postServerCount() {
-        return postStats(false);
+    public void postServerCount(Consumer<IBLResponse> responseConsumer) {
+        postStats(false, responseConsumer);
     }
 
     @Override
-    public IBLResponse postStats() {
-        return postStats(true);
+    public void postStats(Consumer<IBLResponse> responseConsumer) {
+        postStats(true, responseConsumer);
     }
 
-    private IBLResponse postStats(boolean postShards) {
+    private void postStats(boolean postShards, Consumer<IBLResponse> responseConsumer) {
         RequestBody body = new FormBody.Builder()
                 .add("servers", String.valueOf(discordClient.getGuildCount()))
                 .add("shards", String.valueOf(postShards ? discordClient.getShardCount() : 0))
@@ -52,7 +52,7 @@ public class IBLBuilder implements IBL {
                 .url(BASE_URL + "bots/stats")
                 .build();
 
-        return IBLCall.fetch(request, IBLResponse.class).getResponse();
+        IBLCall.fetch(request, IBLResponse.class, response -> responseConsumer.accept(response.getResponse()));
     }
 
     @Override
@@ -73,6 +73,6 @@ public class IBLBuilder implements IBL {
                     "Your delay in millisecond : " + delayInMillis);
         }
 
-        executor.scheduleWithFixedDelay(() -> afterResponse.accept(postStats()), 0, delay, timeUnit);
+        executor.scheduleWithFixedDelay(() -> postStats(afterResponse), 0, delay, timeUnit);
     }
 }

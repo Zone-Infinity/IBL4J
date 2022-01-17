@@ -1,7 +1,8 @@
 package me.infinity.ibl;
 
 import me.infinity.ibl.data.IBLResponse;
-import me.infinity.ibl.data.bot.IBLBot;
+import me.infinity.ibl.data.entities.IBLBot;
+import me.infinity.ibl.data.entities.IBLUser;
 import okhttp3.Request;
 
 import java.util.concurrent.ScheduledExecutorService;
@@ -22,16 +23,14 @@ public interface IBL {
     /**
      * Only Posts Server Count to Infinity Bot List
      *
-     * @return Response by IBL
      */
-    IBLResponse postServerCount();
+    void postServerCount(Consumer<IBLResponse> responseConsumer);
 
     /**
      * Posts Stats (Server Count and Shard Count both) to Infinity Bot List
      *
-     * @return Response by IBL
      */
-    IBLResponse postStats();
+    void postStats(Consumer<IBLResponse> responseConsumer);
 
     /**
      * Auto Posts Stats to IBL every 5 minutes
@@ -53,16 +52,31 @@ public interface IBL {
      */
     void autoPostStats(ScheduledExecutorService executor, long delay, TimeUnit timeUnit, Consumer<IBLResponse> afterResponse);
 
-    static IBLBot getBotStats(String botID) {
+    static void getBotStats(String botID, Consumer<IBLBot> botConsumer) {
         Request request = new Request.Builder()
                 .get()
                 .url(BASE_URL + "bots/" + botID)
                 .build();
 
-        IBLCall.ResponseT<IBLBot> response = IBLCall.fetch(request, IBLBot.class);
-        IBLBot bot = response.getResponse();
-        if (response.getCode() != 200) bot.doesNotExist();
+        IBLCall.fetch(request, IBLBot.class, response -> {
+            IBLBot bot = response.getResponse();
+            if (response.getCode() != 200) bot.doesNotExist();
 
-        return bot;
+            botConsumer.accept(bot);
+        });
+    }
+
+    static void getUserInfo(String userID, Consumer<IBLUser> userConsumer) {
+        Request request = new Request.Builder()
+                .get()
+                .url(BASE_URL + "user/" + userID)
+                .build();
+
+        IBLCall.fetch(request, IBLUser.class, response -> {
+            IBLUser user = response.getResponse();
+            if (response.getCode() != 200) user.doesNotExist();
+
+            userConsumer.accept(user);
+        });
     }
 }
