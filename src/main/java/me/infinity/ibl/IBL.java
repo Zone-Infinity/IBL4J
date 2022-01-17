@@ -15,10 +15,7 @@ import java.util.function.Consumer;
 public interface IBL {
     String BASE_URL = "https://api.infinitybotlist.com/";
 
-    /**
-     * @return the Bot Object
-     */
-    IBLBot getStats();
+    void getStats(Consumer<IBLBot> botConsumer);
 
     /**
      * Only Posts Server Count to Infinity Bot List

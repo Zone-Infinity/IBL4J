@@ -26,8 +26,8 @@ public class IBLBuilder implements IBL {
     }
 
     @Override
-    public IBLBot getStats() {
-        return null;
+    public void getStats(Consumer<IBLBot> botConsumer) {
+        IBL.getBotStats(discordClient.getId(), botConsumer);
     }
 
     @Override
