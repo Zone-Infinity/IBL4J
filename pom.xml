@@ -29,21 +29,19 @@
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
             <version>5.0.0-alpha.4</version>
-            <type>compile</type>
         </dependency>
         <!-- https://github.com/Discord4J/Discord4J -->
         <dependency>
             <groupId>com.discord4j</groupId>
             <artifactId>discord4j-core</artifactId>
             <version>3.2.1</version>
-            <type>compile</type>
         </dependency>
         <!-- https://github.com/Javacord/Javacord -->
         <dependency>
             <groupId>org.javacord</groupId>
             <artifactId>javacord</artifactId>
             <version>3.3.2</version>
-            <type>compile</type>
+            <type>pom</type>
         </dependency>
 
         <!-- https://github.com/square/okhttp -->
