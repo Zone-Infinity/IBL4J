@@ -23,6 +23,8 @@
     </distributionManagement>
 
     <dependencies>
+        <!-- Java Discord Libraries -->
+        <!-- https://github.com/DV8FromTheWorld/JDA -->
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
@@ -34,13 +36,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!-- https://github.com/Javacord/Javacord -->
         <dependency>
             <groupId>com.discord4j</groupId>
             <artifactId>discord4j-core</artifactId>
             <version>3.2.1</version>
         </dependency>
-
+        <!-- https://github.com/Discord4J/Discord4J -->
         <dependency>
             <groupId>org.javacord</groupId>
             <artifactId>javacord</artifactId>
@@ -48,27 +50,20 @@
             <type>pom</type>
         </dependency>
 
+        <!-- https://github.com/square/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.3</version>
+        </dependency>
+
+        <!-- https://github.com/FasterXML/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.13.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>dv8tion</id>
-            <name>m2-dv8tion</name>
-            <url>https://m2.dv8tion.net/releases</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>

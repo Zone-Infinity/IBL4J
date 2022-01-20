@@ -3,7 +3,7 @@ package me.infinity.ibl;
 import me.infinity.ibl.data.IBLDiscordClient;
 import me.infinity.ibl.data.IBLResponse;
 import me.infinity.ibl.data.entities.IBLBot;
-import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 public class IBLBuilder implements IBL {
+    private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     private final IBLDiscordClient<?> discordClient;
     private final String iblToken;
@@ -41,15 +42,17 @@ public class IBLBuilder implements IBL {
     }
 
     private void postStats(boolean postShards, Consumer<IBLResponse> responseConsumer) {
-        RequestBody body = new FormBody.Builder()
-                .add("servers", String.valueOf(discordClient.getGuildCount()))
-                .add("shards", String.valueOf(postShards ? discordClient.getShardCount() : 0))
-                .build();
+        String body = String.format("{\"servers\":%s,\"shards\":%s}",
+                discordClient.getGuildCount(),
+                postShards ? discordClient.getShardCount() : 0
+        );
+        RequestBody requestBody = RequestBody.create(JSON, body);
 
         Request request = new Request.Builder()
-                .post(body)
-                .addHeader("authorization", iblToken)
                 .url(BASE_URL + "bots/stats")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("authorization", iblToken)
+                .post(requestBody)
                 .build();
 
         IBLCall.fetch(request, IBLResponse.class, response -> responseConsumer.accept(response.getResponse()));
