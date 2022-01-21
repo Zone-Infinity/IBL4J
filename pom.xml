@@ -7,7 +7,13 @@
     <groupId>com.github.Zone-Infinity</groupId>
     <artifactId>IBL4J</artifactId>
     <version>2.0</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>ibl4j</module>
+        <module>ibl-jda</module>
+        <module>ibl-discord4j</module>
+        <module>ibl-javacord</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,43 +27,6 @@
             <url>https://jitpack.io</url>
         </repository>
     </distributionManagement>
-
-    <dependencies>
-        <!-- Java Discord Libraries -->
-        <!-- https://github.com/DV8FromTheWorld/JDA -->
-        <dependency>
-            <groupId>net.dv8tion</groupId>
-            <artifactId>JDA</artifactId>
-            <version>5.0.0-alpha.4</version>
-        </dependency>
-        <!-- https://github.com/Discord4J/Discord4J -->
-        <dependency>
-            <groupId>com.discord4j</groupId>
-            <artifactId>discord4j-core</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-        <!-- https://github.com/Javacord/Javacord -->
-        <dependency>
-            <groupId>org.javacord</groupId>
-            <artifactId>javacord</artifactId>
-            <version>3.3.2</version>
-            <type>pom</type>
-        </dependency>
-
-        <!-- https://github.com/square/okhttp -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.9.3</version>
-        </dependency>
-
-        <!-- https://github.com/FasterXML/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.1</version>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
