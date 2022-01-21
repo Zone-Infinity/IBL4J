@@ -7,13 +7,14 @@
     <groupId>com.github.Zone-Infinity</groupId>
     <artifactId>IBL4J</artifactId>
     <version>2.0</version>
+    <packaging>pom</packaging>
+
     <modules>
         <module>ibl4j</module>
         <module>ibl-jda</module>
         <module>ibl-discord4j</module>
         <module>ibl-javacord</module>
     </modules>
-    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

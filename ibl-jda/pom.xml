@@ -9,9 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.Zone-Infinity.IBL4J</groupId>
     <artifactId>ibl-jda</artifactId>
-    <version>1.0</version>
+    <name>ibl-jda</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
