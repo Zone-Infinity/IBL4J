@@ -1,44 +1,17 @@
 # IBL4J
-![jitpack] ![workflowStatus] ![lastcommit] <br>
+
+![jitpack] ![workflowStatus] ![lastcommit] ![codefactor]<br>
+
 Java Wrapper for interacting with the Infinity Bots API
 
-### Posting
+### How to use the Library ?
 
-### Auto Posting
-
-## Installation
-
-- Replace `VERSION` by the latest version
-
-### Maven
-
-```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
-
-```xml
-<dependency>
-    <groupId>com.github.Zone-Infinity</groupId>
-    <artifactId>IBL4J</artifactId>
-    <version>VERSION</version>
-</dependency>
-```
-
-### Gradle
-
-```gradle
-maven { url 'https://jitpack.io' }
-```
-
-```gradle
-implementation 'com.github.Zone-Infinity:IBL4J:VERSION'
-```
+Read the [wiki](https://github.com/Zone-Infinity/IBL4J/wiki);
 
 [lastcommit]:https://img.shields.io/github/last-commit/Zone-Infinity/IBL4J?style=flat-square
 
 [workflowStatus]:https://img.shields.io/github/workflow/status/Zone-Infinity/IBL4J/Java%20CI%20with%20Maven?style=flat-square
 
 [jitpack]:https://img.shields.io/jitpack/v/github/Zone-Infinity/IBL4J?style=flat-square
+
+[codefactor]:https://www.codefactor.io/repository/github/zone-infinity/ibl4j/badge?style=flat-square
