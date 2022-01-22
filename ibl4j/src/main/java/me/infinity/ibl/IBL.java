@@ -97,7 +97,6 @@ public interface IBL {
         Request request = new Request.Builder()
                 .get()
                 .url(BASE_URL + "user/" + userID)
-
                 .build();
 
         IBLCall.fetch(request, IBLUser.class, response -> {

@@ -1,8 +1,10 @@
 package me.infinity.ibl.data.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class IBLUser {
     @JsonIgnore
     private boolean exists = true;
@@ -25,10 +27,6 @@ public class IBLUser {
 
     @JsonIgnore
     public boolean exists() {
-        return exists;
-    }
-
-    public boolean isExists() {
         return exists;
     }
 
