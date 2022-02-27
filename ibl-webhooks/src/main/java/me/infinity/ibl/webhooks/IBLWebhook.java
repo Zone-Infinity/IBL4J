@@ -34,6 +34,10 @@ public class IBLWebhook {
     }
 
     public void start() {
+        start(8080);
+    }
+
+    public void start(int port) {
         LOGGER.info("Starting Webhook ...");
 
         app.post(iblPath, ctx -> {
@@ -46,7 +50,11 @@ public class IBLWebhook {
             ctx.status(200);
         });
 
-        app.start(8080);
+        app.start(port);
         LOGGER.info("Listening to port 8080");
+    }
+
+    public Javalin getApp() {
+        return app;
     }
 }
