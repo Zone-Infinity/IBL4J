@@ -9,15 +9,15 @@ public class IBLVoteEvent {
     private final Type type;
     private final String botID;
     private final String userID;
-    private final String username;
+    private final String userName;
     private final int count;
     private final long timeStamp;
 
-    public IBLVoteEvent(Type type, String botID, String userID, String username, int count, long timestamp) {
+    public IBLVoteEvent(Type type, String botID, String userID, String userName, int count, long timestamp) {
         this.type = type;
         this.botID = botID;
         this.userID = userID;
-        this.username = username;
+        this.userName = userName;
         this.count = count;
         this.timeStamp = timestamp;
     }
@@ -56,8 +56,8 @@ public class IBLVoteEvent {
      *
      * @return username in string
      */
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
     /**
