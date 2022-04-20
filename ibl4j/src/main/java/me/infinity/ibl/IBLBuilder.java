@@ -79,8 +79,8 @@ public class IBLBuilder implements IBL {
     @Override
     public void autoPostStats(ScheduledExecutorService executor, long delay, TimeUnit timeUnit, Consumer<IBLResponse> afterTask) {
         long delayInMillis = timeUnit.toMillis(delay);
-        if (delayInMillis < 100000) { // 100K milliseconds = 5 minutes / 3 requests
-            throw new IllegalArgumentException("Delay should be more than 100000 milliseconds for handling rate limits,\n" +
+        if (delayInMillis < 300000) { // 300K milliseconds = 5 minutes / 1 requests
+            throw new IllegalArgumentException("Delay should be more than or equal to 300000 milliseconds for handling rate limits,\n" +
                     "Your delay in millisecond : " + delayInMillis);
         }
 
